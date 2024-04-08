@@ -1,7 +1,6 @@
 GO_FILES=$(shell find . -name '*.go')
-VERSION?="dev"
 NAME="mysql-lint"
-LDFLAGS="-s -w -X github.com/korableg/mysql-lint/cmd.Version=${VERSION}"
+LDFLAGS="-s -w"
 
 .PHONY: order_imports
 order_imports:
@@ -18,15 +17,3 @@ test:
 .PHONY: build
 build:
 	go build -o ${NAME} -ldflags ${LDFLAGS} .
-
-.PHONY: docker_release
-docker_release:
-	docker buildx build \
-        --pull \
-        --platform linux/amd64,linux/arm64 \
-		--build-arg VERSION=${VERSION} \
-		--build-arg LDFLAGS=${LDFLAGS} \
- 		-t korableg/${NAME}:${VERSION} \
- 		-t korableg/${NAME}:latest \
- 		--push \
- 		.

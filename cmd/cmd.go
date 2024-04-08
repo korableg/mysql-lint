@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"runtime/debug"
 
 	"github.com/spf13/cobra"
 
@@ -17,12 +18,19 @@ const (
 	FlagDir = "dir"
 )
 
-var Version = "dev"
-
 func NewCommand() *cobra.Command {
+	var (
+		version = "(devel)"
+		bi, ok  = debug.ReadBuildInfo()
+	)
+
+	if ok {
+		version = bi.Main.Version
+	}
+
 	c := &cobra.Command{
 		Use:     AppName,
-		Version: Version,
+		Version: version,
 		Short:   "MySQL query linter",
 		Run: func(cmd *cobra.Command, args []string) {
 			var dir, _ = cmd.Flags().GetString(FlagDir)
