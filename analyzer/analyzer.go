@@ -10,7 +10,7 @@ import (
 	"path/filepath"
 
 	"github.com/pingcap/tidb/pkg/parser"
-	_ "github.com/pingcap/tidb/pkg/types/parser_driver"
+	_ "github.com/pingcap/tidb/pkg/parser/test_driver"
 	"golang.org/x/tools/go/callgraph/cha"
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/tools/go/ssa"

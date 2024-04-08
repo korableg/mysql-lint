@@ -38,8 +38,7 @@ func NewCommand() *cobra.Command {
 		},
 	}
 
-	c.Flags().String(FlagDir, "", "Path to the GO code directory")
-	_ = c.MarkFlagRequired(FlagDir)
+	c.Flags().String(FlagDir, ".", "Path to the GO code directory")
 
 	return c
 }
