@@ -1,7 +1,7 @@
 # options for analysis running
 run:
   # timeout for analysis, e.g. 30s, 5m, default is 1m
-  deadline: 5m
+  timeout: 5m
 
   # exit code when at least one issue was found, default is 1
   issues-exit-code: 1
@@ -31,7 +31,8 @@ issues:
 # output configuration options
 output:
   # colored-line-number|line-number|json|tab|checkstyle, default is "colored-line-number"
-  format: colored-line-number
+  formats:
+    - format: colored-line-number
 
   # print lines of code with issue, default is true
   print-issued-lines: true
@@ -42,8 +43,6 @@ output:
 # all available settings of specific linters
 linters-settings:
   govet:
-    # report about shadowed variables
-    check-shadowing: true
     enable:
       # report mismatches between assembly files and Go declarations
       - asmdecl

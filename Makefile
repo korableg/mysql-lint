@@ -21,7 +21,9 @@ build:
 
 .PHONY: docker_release
 docker_release:
-	docker build \
+	docker buildx build \
+        --pull \
+        --platform linux/amd64,linux/arm64 \
 		--build-arg VERSION=${VERSION} \
 		--build-arg LDFLAGS=${LDFLAGS} \
  		-t korableg/${NAME}:${VERSION} \

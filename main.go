@@ -7,6 +7,5 @@ import (
 )
 
 func main() {
-	c := cmd.NewCommand()
-	cobra.CheckErr(c.Execute())
+	cobra.CheckErr(cmd.NewCommand().Execute())
 }

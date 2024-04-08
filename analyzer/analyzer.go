@@ -2,9 +2,11 @@ package analyzer
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"go/constant"
 	"go/token"
+	"os"
 	"path/filepath"
 
 	"github.com/pingcap/tidb/pkg/parser"
@@ -46,6 +48,15 @@ func (a *Analyzer) Analyze(ctx context.Context, root string) (err error) {
 	root, err = filepath.Abs(root)
 	if err != nil {
 		return fmt.Errorf("calculate file absolute path: %w", err)
+	}
+
+	info, err := os.Lstat(root)
+	if err != nil {
+		return fmt.Errorf("get file info: %w", err)
+	}
+
+	if !info.IsDir() {
+		return errors.New("file is not a dir")
 	}
 
 	queries, err := a.getSQLQueries(ctx, root)
